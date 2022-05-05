@@ -1,0 +1,10 @@
+.venv/
+.idea/
+res/
+*.jpg
+*.pkl
+material/
+*.json
+*.pth
+__pycache__/
+*.md
