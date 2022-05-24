@@ -1,10 +1,11 @@
 .venv/
 .idea/
-res/
+__pycache__/
+dist/
+*.egg-info/
+
+reports/
 *.jpg
 *.pkl
-material/
 *.json
 *.pth
-__pycache__/
-*.md
