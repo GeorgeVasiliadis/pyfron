@@ -5,7 +5,7 @@ from opendr.engine.data import Image
 
 from .env import Config
 from .recognizers import recognizer_factory
-from .models import Diff
+from .structures import Diff
 from .reports import Generator
 
 
@@ -43,9 +43,9 @@ def test_recognizer(reference_dir, test_dir, recognizer) -> List[Diff]:
     return diff_list
 
 
-def run(config: Config):
+def run(config: Config, model_id: str = ""):
     reference_images_dir = os.path.join(config.REFERENCE_DB_DIR, "images")
-    test_images_dir = os.path.join(config.TEST_DIR, "images")
+    test_images_dir = os.path.join(config.TEST_DIR)
 
     if not os.listdir(test_images_dir):
         print("There are no test images")
@@ -53,12 +53,12 @@ def run(config: Config):
         exit()
 
     print("Loading recognizer...")
-    recognizer = recognizer_factory(config)
+    recognizer = recognizer_factory(config, model_id)
 
     print("Testing recognizer...")
     diffs = test_recognizer(reference_images_dir, test_images_dir, recognizer)
 
     print("Generating report...")
-    generator = Generator(config.REPORTS_DIR)
+    generator = Generator(config.REPORTS_DIR, title=model_id)
     generator.auto(sorted(diffs, key=lambda x: x.conf, reverse=True))
 

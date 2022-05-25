@@ -14,7 +14,8 @@ class Generator:
         title_str = f"# {self.title}"
         self.add_section(title_str)
 
-    def _str_diff(self, diff_id, diff):
+    @staticmethod
+    def _str_diff(diff_id, diff):
         diff_str = f"### Difference {diff_id}\n"
         diff_str += f"<img src='{diff.img}' height=150 alt='First image'> was found similar to "
         if diff.conf:
@@ -25,7 +26,7 @@ class Generator:
         return diff_str
 
     def print_diffs(self, diff_list):
-        diffs_str = "## All Differences\n"
+        diffs_str = "## Similarities Report\n"
         diffs_str += "|Image|Reference|Confidence|\n|---|---|---|\n"
         for i, diff in enumerate(diff_list):
             img1 = f"<img src='{diff.img}' height=150 alt='First image'>"
